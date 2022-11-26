@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "name": "mern-rest-api",
+  "description": "mern-rest-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ILopatenko/mern-rest-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ILopatenko/mern-rest-api/issues"
+  },
+  "homepage": "https://github.com/ILopatenko/mern-rest-api#readme"
+}
