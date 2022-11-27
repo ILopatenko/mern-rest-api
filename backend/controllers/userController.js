@@ -32,7 +32,7 @@ const registerUser = asynkHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       message: 'User was registered successfuly!',
-      userObject: { _id: user.id, name: user.name, email: user.email },
+      userObject: { id: user.id, name: user.name, email: user.email },
     });
   } else {
     res.status(400);
@@ -57,6 +57,7 @@ const loginUser = asynkHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(201).json({
       message: 'User was Logged In successfuly!',
+      userID: user.id,
       token: generateToken(user.id),
     });
   } else {
@@ -69,7 +70,14 @@ const loginUser = asynkHandler(async (req, res) => {
 // @route   GET to /api/users/me
 // @access  Private
 const getMe = asynkHandler(async (req, res) => {
-  res.status(200).json({ message: 'My profile information was red!' });
+  res.status(201).json({
+    message: `Logged In User's profile was red successfuly!`,
+    userObject: {
+      userID: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+    },
+  });
 });
 
 //HELPERS:

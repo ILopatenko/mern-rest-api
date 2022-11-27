@@ -112,12 +112,24 @@
 			"item": [
 				{
 					"name": "RegisterNewUSer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"userID\", responseData.userID);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Tests User's Name\",\n    \"email\": \"Test Email #2\",\n    \"password\": \"Tests Password\"\n}",
+							"raw": "{\n    \"name\": \"{{userName}}\",\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,14 +137,9 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/api/users",
+							"raw": "{{host}}users",
 							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"users"
+								"{{host}}users"
 							]
 						}
 					},
@@ -140,12 +147,25 @@
 				},
 				{
 					"name": "LogIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", responseData.token);",
+									"postman.setEnvironmentVariable(\"userID\", responseData.userID);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"Tests Email #1\",\n    \"password\": \"Tests Password\"\n}",
+							"raw": "{\n    \"email\": \"{{userEmail}}\",\n    \"password\": \"{{userPassword}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -153,14 +173,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/api/users/login",
+							"raw": "{{host}}users/login",
 							"host": [
-								"localhost"
+								"{{host}}users"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"users",
 								"login"
 							]
 						}
@@ -169,9 +186,31 @@
 				},
 				{
 					"name": "GetMyProfile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:5000/api/users/me",
 							"host": [
