@@ -10,19 +10,24 @@
 			"name": "GOAL",
 			"item": [
 				{
-					"name": "GetAllGoals",
+					"name": "GetAllMyGoals",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/goals",
+							"raw": "{{host}}goals",
 							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"goals"
+								"{{host}}goals"
 							]
 						}
 					},
@@ -30,12 +35,34 @@
 				},
 				{
 					"name": "SetNewGoal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"goalID\", responseData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"text\": \"This is my second goal!\"\n}",
+							"raw": "{\n    \"text\": \"This is my goal #2 for user #2 - 6383c1dc013a4100d13c4929!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,14 +70,9 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/api/goals",
+							"raw": "{{host}}goals",
 							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"goals"
+								"{{host}}goals"
 							]
 						}
 					},
@@ -59,11 +81,21 @@
 				{
 					"name": "UpdateGoalByID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"text\": \"This is my third goal!\"\n}",
+							"raw": "{\n    \"text\": \"This is my changed goal!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,15 +103,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/api/goals/63827f097c0a14feeb3f85da",
+							"raw": "{{host}}goals/{{goalID}}",
 							"host": [
-								"localhost"
+								"{{host}}goals"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"goals",
-								"63827f097c0a14feeb3f85da"
+								"{{goalID}}"
 							]
 						}
 					},
@@ -88,18 +117,25 @@
 				{
 					"name": "DeleteGoalByID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/goals/63827d532b1c38d468ea3145",
+							"raw": "{{host}}goals/{{goalID}}",
 							"host": [
-								"localhost"
+								"{{host}}goals"
 							],
-							"port": "5000",
 							"path": [
-								"api",
-								"goals",
-								"63827d532b1c38d468ea3145"
+								"{{goalID}}"
 							]
 						}
 					},
